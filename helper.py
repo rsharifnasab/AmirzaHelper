@@ -7,9 +7,9 @@ def comp(a,b):
     return True;
 
 #file1 = "list1.txt";
-file2 = "list2.csv";
+file = "list3.txt";
 
-textfile = open(file2, 'r')
+textfile = open(file, 'r')
 text = textfile.read()
 textfile.close()
 
