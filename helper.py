@@ -1,9 +1,14 @@
 import re
 
-file1 = "list1.txt";
+def comp(a,b):
+    for c in a:
+        for d in b:
+            if a.count(c) != b.count(d) : return False;
+    return True;
+
+#file1 = "list1.txt";
 file2 = "list2.csv";
 
-# ازبررگه
 textfile = open(file2, 'r')
 text = textfile.read()
 textfile.close()
@@ -12,6 +17,7 @@ chars = input("pls enter your chars\n")
 tool = int(input("enter tool : "))
 
 chars.replace(" ","") # removing white spaces
+
 regex = "[" + chars + "]{2,}"
 
 regex = re.compile(regex)
@@ -22,6 +28,7 @@ ans = ""
 for w in uniq_matches :
     if len(w) != tool: continue;
     if (","+w+"\n") not in text : continue;
+    if comp(w,chars) == False : continue;
     ans = ans + w + "\n"
 
 print(" working complete, saving to file..")
