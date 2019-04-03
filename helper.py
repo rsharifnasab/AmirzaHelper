@@ -8,7 +8,7 @@ text = textfile.read()
 textfile.close()
 chars = input("pls enter your chars\n")
 chars.replace(" ","") # removing white spaces
-regex = "[" + str(chars) + "]{2,}"
+regex = "[" + str(chars) + "]{2,"+ str(len(chars)) +"}"
 regex = re.compile(regex)
 matches = re.findall(regex, text)
 clean_matches = sorted(set(matches))
