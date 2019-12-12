@@ -27,7 +27,7 @@ uniq_matches = sorted(set(matches))
 ans = ""
 for match in uniq_matches :
     if (tool != -1)  and (len(match) != tool): continue
-    if f",{match}\n" not in text : continue
+    #if f",{match}\n" not in text : continue
     if not is_count_ok(match,chars) : continue;
     ans = ans + match + "\n"
 
