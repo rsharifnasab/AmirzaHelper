@@ -1,19 +1,21 @@
+#!/usr/bin/python3
 import re
 
-def comp(a,b):
-    for c in a:
-        for d in b:
-            if a.count(c) != b.count(d) : return False;
+def is_count_ok(found_word,chars):
+    for c in found_word:
+        for d in chars:
+            if found_word.count(c) > chars.count(d) : return False;
     return True;
 
-file = "list3.txt";
+file = "list4.txt";
 textfile = open(file, 'r')
 text = textfile.read()
 textfile.close()
 
+
 chars = input("pls enter your chars\n")
-tool = -1  #TODO
-#tool = int(input("enter tool : "))
+tool = -1
+tool = int(input("enter tool : (-1 for all) \n"))
 
 chars.replace(" ","") # removing white spaces
 
@@ -23,11 +25,11 @@ matches = re.findall(regex, text)
 uniq_matches = sorted(set(matches))
 
 ans = ""
-for w in uniq_matches :
-    if (tool != -1)  and (len(w) != tool): continue;
-    if (","+w+"\n") not in text : continue;
-    if comp(w,chars) == False : continue;
-    ans = ans + w + "\n"
+for match in uniq_matches :
+    if (tool != -1)  and (len(match) != tool): continue
+    if f",{match}\n" not in text : continue
+    if not is_count_ok(match,chars) : continue;
+    ans = ans + match + "\n"
 
 print(" working complete, saving to file . . ")
 
