@@ -1,4 +1,4 @@
-a simple program to find answer of mirza app with database of all persian words!
+a simple program to find answer of amirza app with database of all persian words!
 first of all you should run program with command: python3 helper.py
 then enter all your worlds(space isnt required)
 after pressing enter program will list all possible words in a file: ans.txt
