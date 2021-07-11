@@ -1,42 +1,50 @@
 #!/usr/bin/python3
 import re
 
-def is_count_ok(found_word,chars):
+word_list_list = ["list1.txt", "list4.txt", "list5.txt", "list6.txt"]
+result_file = "ans.txt"
+
+
+def check_count(found_word, chars):
+    return True
     for c in found_word:
         for d in chars:
-            if found_word.count(c) > chars.count(d) : return False;
-    return True;
-
-file = "list4.txt";
-textfile = open(file, 'r')
-text = textfile.read()
-textfile.close()
+            if found_word.count(c) > chars.count(d):
+                return False
+    return True
 
 
-chars = input("pls enter your chars\n")
-tool = -1
-tool = int(input("enter tool : (-1 for all) \n"))
+chars = input("pls enter your chars\n").strip()
 
-chars.replace(" ","") # removing white spaces
+length = int(input("desired word length (-1 for any)\n"))
 
-regex = "[" + chars + "]{2,}"
-regex = re.compile(regex)
-matches = re.findall(regex, text)
+chars.replace("\\s+", "")  # removing white spaces
+
+regex_str = "\\b[" + chars + "]{2,}\\b"
+print(f"regex  : {regex_str}")
+
+
+words = ""
+for word_list in word_list_list:
+    words += open(word_list, 'r').read().replace("\\s+", "\n")
+
+regex = re.compile(regex_str)
+matches = re.findall(regex, words)
 uniq_matches = sorted(set(matches))
 
 ans = ""
-for match in uniq_matches :
-    if (tool != -1)  and (len(match) != tool): continue
-    #if f",{match}\n" not in text : continue
-    if not is_count_ok(match,chars) : continue;
-    ans = ans + match + "\n"
+for match in uniq_matches:
+    if length != -1 and len(match) != length:
+        continue
+    # if not check_count(match,chars):
+    #    continue
+    ans = f"{ans}{match}\n"
 
-print(" working complete, saving to file . . ")
+if ans == "":
+    print("nothing found")
+else:
+    print(f"complete, saving to {result_file} . . ")
 
-out_file = 'ans.txt'
-out = open(out_file,'w')
+out = open(result_file, 'w')
 out.write(ans)
 out.close()
-
-if ans == "" : print("nothing found")
-else : print("wow, congradualtions")
